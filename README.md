@@ -15,8 +15,21 @@ sudo systemctl start postgresql-11
 
 # connect
 ```
-sudo su postgres
+sudo su - postgres
 psql
+```
+
+https://qiita.com/tom-sato/items/d5f722fd02ed76db5440
+
+# password_encryption
+sudo vi /var/lib/pgsql/11/data/postgresql.conf
+```
+#password_encryption = md5		# md5 or scram-sha-256
+ ↓
+password_encryption = scram-sha-256		# md5 or scram-sha-256
+```
+```
+sudo systemctl restart postgresql-11
 ```
 
 # change password
@@ -24,9 +37,10 @@ psql
 ALTER USER postgres with encrypted password 'postgres';
 ```
 
-sudo vi /var/lib/pgsql/data/pg_hba.conf
+sudo vi /var/lib/pgsql/11/data/pg_hba.conf
 ```
 local   all             all                                     peer
+ ↓
 local   all             postgres                                md5
 ```
 ```
