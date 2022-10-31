@@ -61,4 +61,7 @@ psql -U postgres
 ```
 -- ユーザー名「user1」をパスワード「pass」で作成する
 CREATE USER user1 WITH PASSWORD 'pass';
+quit
+
+psql -U user1 -d postgres
 ```
