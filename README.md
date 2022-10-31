@@ -30,6 +30,8 @@ sudo systemctl restart postgresql-11
 ```
 sudo su - postgres
 psql
+
+show password_encryption;
 ```
 
 # change password
@@ -46,7 +48,7 @@ sudo vi /var/lib/pgsql/11/data/pg_hba.conf
 ```
 local   all             all                                     peer
  ↓
-local   all             postgres                                md5
+local   all             postgres                                scram-sha-256
 ```
 ```
 sudo systemctl restart postgresql-11
