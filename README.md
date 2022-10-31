@@ -57,3 +57,8 @@ sudo systemctl restart postgresql-11
 psql -U postgres
 ```
 
+# CREATE USER
+```
+-- ユーザー名「user1」をパスワード「pass」で作成する
+CREATE USER user1 WITH PASSWORD 'pass';
+```
