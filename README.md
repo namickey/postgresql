@@ -159,3 +159,13 @@ E....W@................8....0!..P...0...P.../S_2.select * from item where id = $
 13:36:20.868347 IP 192.168.1.19.58532 > asrockcentos8.postgres: Flags [.], ack 1405, win 507, length 0
 E..(.Z@................8...60!..P....-........
 ```
+
+# summary
+
+spring-boot2.6.6 + postgresql-42.3.3 ⇒ postgresql-11
+
+```
+ssl = off  host     平文通信
+ssl = on   host     TLS通信
+ssl = on   hostssl  TLS通信
+```
