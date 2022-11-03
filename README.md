@@ -164,8 +164,18 @@ E..(.Z@................8...60!..P....-........
 
 spring-boot2.6.6 + postgresql-42.3.3 ⇒ postgresql-11
 
+application.properties (spring-boot)
 ```
-ssl = off  host     平文通信
-ssl = on   host     TLS通信
-ssl = on   hostssl  TLS通信
+spring.datasource.driver-class-name=org.postgresql.Driver
+spring.datasource.url=jdbc:postgresql://192.168.1.12:5432/postgres
+spring.datasource.username=postgres
+spring.datasource.password=postgres
+```
+
+postgresql設定とTLS通信
+```
+ssl = off  +  local   + TCPDUMP =  平文通信
+ssl = off  +  host    + TCPDUMP =  平文通信
+ssl = on   +  host    + TCPDUMP =  TLS通信
+ssl = on   +  hostssl + TCPDUMP =  TLS通信
 ```
