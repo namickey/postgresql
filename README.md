@@ -67,3 +67,41 @@ quit
 
 psql -U user1 -d postgres
 ```
+
+# TLS
+
+https://dk521123.hatenablog.com/entry/2020/05/05/221239
+
+```
+sudo su - postgres
+
+cd /var/lib/pgsql/11/data
+openssl genrsa 2048 > server.key
+openssl req -new -key server.key > server.csr
+openssl x509 -req -signkey server.key < server.csr > server.crt
+
+chmod 600 server.key
+chmod 600 server.csr
+chmod 600 server.crt
+```
+
+sudo vi /var/lib/pgsql/11/data/pg_hba.conf
+```
+local   all             postgres                                scram-sha-256
+ ↓
+hostssl   all           postgres           0.0.0.0/0            scram-sha-256
+```
+
+sudo vi /var/lib/pgsql/11/data/postgresql.conf
+```
+#ssl=off
+ ↓
+ssl=on
+
+#listen_addresses = 'localhost'
+ ↓
+listen_addresses = '*'
+```
+```
+psql -h 192.168.1.12 -U user1 -d postgres
+```
