@@ -179,3 +179,14 @@ ssl = off  +  host    + TCPDUMP =  平文通信
 ssl = on   +  host    + TCPDUMP =  TLS通信
 ssl = on   +  hostssl + TCPDUMP =  TLS通信
 ```
+
+# backup
+
+https://www.postgresql.jp/document/11/html/app-pgbasebackup.html
+
+https://gihyo.jp/dev/feature/01/dex_postgresql/0004
+
+https://tecsak.hatenablog.com/entry/2021/01/02/224329
+
+https://www.fujitsu.com/jp/products/software/resources/feature-stories/postgres/backup-recovery/
+
