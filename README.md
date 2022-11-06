@@ -70,7 +70,7 @@ SHOW data_directory;
 
 https://qiita.com/tom-sato/items/d5f722fd02ed76db5440
 
-sudo vi /var/lib/pgsql/11/data/postgresql.conf
+sudo vi /postgre/pgdata/postgresql.conf
 ```
 #password_encryption = md5		# md5 or scram-sha-256
  ↓
@@ -98,7 +98,7 @@ exit
 ```
 
 # change auth
-sudo vi /var/lib/pgsql/11/data/pg_hba.conf
+sudo vi /postgre/pgdata/pg_hba.conf
 ```
 local   all             all                                     peer
  ↓
@@ -129,7 +129,7 @@ https://dk521123.hatenablog.com/entry/2020/05/05/221239
 ```
 sudo su - postgres
 
-cd /var/lib/pgsql/11/data
+cd /postgre/pgdata
 openssl genrsa 2048 > server.key
 openssl req -new -key server.key > server.csr
 openssl x509 -req -signkey server.key < server.csr > server.crt
@@ -139,14 +139,14 @@ chmod 600 server.csr
 chmod 600 server.crt
 ```
 
-sudo vi /var/lib/pgsql/11/data/pg_hba.conf
+sudo vi /postgre/pgdata/pg_hba.conf
 ```
 local   all             postgres                                scram-sha-256
  ↓
 hostssl   all           postgres           0.0.0.0/0            scram-sha-256
 ```
 
-sudo vi /var/lib/pgsql/11/data/postgresql.conf
+sudo vi /postgre/pgdata/postgresql.conf
 ```
 #ssl=off
  ↓
@@ -224,12 +224,20 @@ https://logical-studio.com/develop/backend/20201008-for-the-day-when-db-is-corru
 
 https://www.kimullaa.com/posts/201910271500/
 
+sudo vi /postgre/pgdata/postgresql.conf
 ```
 wal_level = replica
 archive_mode = on
 archive_command = 'test ! -f /postgre/wal_archive/%f && gzip < %p > /postgre/wal_archive/%f'
 #archive_command = 'test ! -f /postgre/wal_archive/%f && cp %p /postgre/wal_archive/%f'
 ```
+
+```
+sudo mkdir /postgre/wal_archive
+sudo chmod 700 /postgre/wal_archive
+sudo chown postgres:postgres /postgre/wal_archive
+```
+
 
 # backup
 
