@@ -251,10 +251,20 @@ https://www.fujitsu.com/jp/products/software/resources/feature-stories/postgres/
 
 https://www.lancard.com/blog/2018/03/22/pg_basebackup%E3%82%92%E8%A9%A6%E3%81%99/
 
+初回バックアップ
 ```
 sudo mkdir /postgre/basebackup
 sudo chmod 700 /postgre/basebackup
 sudo chown postgres:postgres /postgre/basebackup
+
+pg_basebackup -D /postgre/basebackup/ -Ft -z -Xs -P -U postgres
+#pg_basebackup -D /postgre/basebackup/ -Fp -Xs -P -U postgres
+```
+
+二回目以降バックアップはディレクトリを空にしてから実行する
+```
+sudo rm /postgre/basebackup/base.tar.gz
+sudo rm /postgre/basebackup/pg_wal.tar.gz
 
 pg_basebackup -D /postgre/basebackup/ -Ft -z -Xs -P -U postgres
 #pg_basebackup -D /postgre/basebackup/ -Fp -Xs -P -U postgres
