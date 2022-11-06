@@ -7,3 +7,7 @@ CREATE TABLE item (
 );
 ```
 
+```
+insert into item values(1, 1);
+insert into item values(12, 12);
+```
