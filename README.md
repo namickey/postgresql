@@ -7,6 +7,8 @@
 
 # install for centos 8
 
+https://lets.postgresql.jp/
+
 https://www.postgresql.org/download/
 ```
 # Install the repository RPM:
@@ -180,6 +182,18 @@ ssl = on   +  host    + TCPDUMP =  TLS通信
 ssl = on   +  hostssl + TCPDUMP =  TLS通信
 ```
 
+# change pgdata
+
+https://ex1.m-yabe.com/archives/4719
+
+https://access.redhat.com/documentation/ja-jp/red_hat_enterprise_linux/7/html/selinux_users_and_administrators_guide/sect-managing_confined_services-postgresql-configuration_examples
+
+# wal archive log
+
+https://logical-studio.com/develop/backend/20201008-for-the-day-when-db-is-corrupted/#WAL
+
+https://www.kimullaa.com/posts/201910271500/
+
 # backup
 
 https://www.postgresql.jp/document/11/html/app-pgbasebackup.html
@@ -189,4 +203,6 @@ https://gihyo.jp/dev/feature/01/dex_postgresql/0004
 https://tecsak.hatenablog.com/entry/2021/01/02/224329
 
 https://www.fujitsu.com/jp/products/software/resources/feature-stories/postgres/backup-recovery/
+
+
 
