@@ -188,6 +188,31 @@ https://ex1.m-yabe.com/archives/4719
 
 https://access.redhat.com/documentation/ja-jp/red_hat_enterprise_linux/7/html/selinux_users_and_administrators_guide/sect-managing_confined_services-postgresql-configuration_examples
 
+create pgdata dir
+```
+sudo mkdir -p /postgre/pgdata
+sudo chmod 700 /postgre/pgdata
+sudo chown postgres:postgres /postgre/pgdata
+```
+```
+sudo systemctl stop postgresql-11
+```
+
+vi /usr/lib/systemd/system/postgresql-11.service
+```
+Environment=PGDATA=/var/lib/pgsql/11/data/
+ ↓
+Environment=PGDATA=/postgre/pgdata/
+```
+
+```
+sudo systemctl daemon-reload
+sudo postgresql-11-setup initdb
+sudo systemctl start postgresql-11
+sudo systemctl status postgresql-11
+```
+
+
 # wal archive log
 
 https://logical-studio.com/develop/backend/20201008-for-the-day-when-db-is-corrupted/#WAL
