@@ -59,7 +59,7 @@ Environment=PGDATA=/postgre/pgdata/
 ```
 sudo systemctl daemon-reload
 sudo postgresql-11-setup initdb
-sudo systemctl start postgresql-11
+sudo systemctl restart postgresql-11
 sudo systemctl status postgresql-11
 
 psql
