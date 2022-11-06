@@ -66,13 +66,6 @@ psql
 SHOW data_directory;
 ```
 
-# wal archive log
-
-https://logical-studio.com/develop/backend/20201008-for-the-day-when-db-is-corrupted/#WAL
-
-https://www.kimullaa.com/posts/201910271500/
-
-
 # password_encryption
 
 https://qiita.com/tom-sato/items/d5f722fd02ed76db5440
@@ -223,6 +216,21 @@ ssl = on   +  host    + TCPDUMP =  TLS通信
 ssl = on   +  hostssl + TCPDUMP =  TLS通信
 ```
 
+# wal archive log
+
+https://www.postgresql.jp/document/11/html/continuous-archiving.html#BACKUP-PITR-RECOVERY
+
+https://logical-studio.com/develop/backend/20201008-for-the-day-when-db-is-corrupted/#WAL
+
+https://www.kimullaa.com/posts/201910271500/
+
+```
+wal_level = replica
+archive_mode = on
+archive_command = 'test ! -f /postgre/wal_archive/%f && gzip < %p > /postgre/wal_archive/%f'
+#archive_command = 'test ! -f /postgre/wal_archive/%f && cp %p /postgre/wal_archive/%f'
+```
+
 # backup
 
 https://www.postgresql.jp/document/11/html/app-pgbasebackup.html
@@ -233,5 +241,55 @@ https://tecsak.hatenablog.com/entry/2021/01/02/224329
 
 https://www.fujitsu.com/jp/products/software/resources/feature-stories/postgres/backup-recovery/
 
+https://www.lancard.com/blog/2018/03/22/pg_basebackup%E3%82%92%E8%A9%A6%E3%81%99/
 
+```
+sudo mkdir /postgre/basebackup
+sudo chmod 700 /postgre/basebackup
+sudo chown postgres:postgres /postgre/basebackup
 
+pg_basebackup -D /postgre/basebackup/ -Ft -z -Xs -P -U postgres
+#pg_basebackup -D /postgre/basebackup/ -Fp -Xs -P -U postgres
+```
+
+# restore
+
+１．停止
+```
+sudo systemctl stop postgresql-11
+```
+
+２．PGDATA（最新WALログ）の退避
+```
+sudo mv /postgre/pgdata/ /postgre/pgdata.bak/
+sudo mkdir /postgre/pgdata
+sudo chmod 700 /postgre/pgdata
+sudo chown postgres:postgres /postgre/pgdata
+```
+
+３．ベースバックアップの復旧
+```
+tar xzfv /postgre/basebackup/base.tar.gz -C /postgre/pgdata
+```
+
+４．古いWALログの削除
+```
+rm -rf /postgre/pgdata/pg_wal
+```
+
+５．最新WALログの復旧
+```
+cp -p /postgre/pgdata.bak/pg_wal/ /postgre/pgdata/pg_wal/
+```
+
+６．リカバリ設定
+vi /postgre/pgdata/recovery.conf
+```
+restore_command = 'gunzip < /postgre/wal_archive/%f > %p'
+#restore_command = 'cp /postgre/wal_archive/%f "%p"'
+```
+
+７．起動
+```
+sudo systemctl start postgresql-11
+```
