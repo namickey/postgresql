@@ -173,7 +173,11 @@ sudo firewall-cmd --reload
 
 https://qiita.com/tossh/items/4cd33693965ef231bd2a
 ```
+複数サーバ間通信
 sudo tcpdump -A dst port 5432
+
+単一サーバ内通信
+sudo tcpdump -i lo -A dst port 5432
 ```
 
 ```
@@ -210,7 +214,7 @@ spring.datasource.password=postgres
 
 postgresql設定とTLS通信
 ```
-ssl = off  +  local   + TCPDUMP =  (tcpdumpが取得できない...)
+ssl = off  +  local   + TCPDUMP =  平文通信
 ssl = off  +  host    + TCPDUMP =  平文通信
 ssl = on   +  host    + TCPDUMP =  TLS通信
 ssl = on   +  hostssl + TCPDUMP =  TLS通信
