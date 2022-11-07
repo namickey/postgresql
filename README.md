@@ -200,7 +200,7 @@ E....W@................8....0!..P...0...P.../S_2.select * from item where id = $
 E..(.Z@................8...60!..P....-........
 ```
 
-# summary
+# TLS summary
 
 spring-boot2.6.6 + postgresql-42.3.3 ⇒ postgresql-11
 
@@ -214,10 +214,10 @@ spring.datasource.password=postgres
 
 postgresql設定とTLS通信
 ```
-ssl = off  +  local   + TCPDUMP =  平文通信
-ssl = off  +  host    + TCPDUMP =  平文通信
-ssl = on   +  host    + TCPDUMP =  TLS通信
-ssl = on   +  hostssl + TCPDUMP =  TLS通信
+1. ssl=off  +  host    + password      + TCPDUMP =  password：平文通信、SQL：平文通信
+2. ssl=off  +  host    + scram-sha-256 + TCPDUMP =  password：判読不可、SQL：平文通信
+3. ssl=on   +  hostssl + password      + TCPDUMP =  password：判読不可、SQL：判読不可
+4. ssl=on   +  hostssl + scram-sha-256 + TCPDUMP =  password：判読不可、SQL：判読不可
 ```
 
 # wal archive log
