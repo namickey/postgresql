@@ -205,7 +205,7 @@ openssl req -new -key server.key > server.csr
 openssl x509 -req -signkey server.key < server.csr > server.crt
 
 chmod 600 server.key
-chmod 600 server.csr
+chmod 600 server.csr  # 不要
 chmod 600 server.crt
 ```
 
