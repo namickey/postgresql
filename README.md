@@ -5,7 +5,7 @@
 - CentOS Stream 8
 
 
-# install for centos 8
+# install postgresql for centos Stream 8
 
 https://lets.postgresql.jp/
 
@@ -32,8 +32,55 @@ postgresql11-11.17-1PGDG.rhel8.x86_64.rpm
 postgresql11-server-11.17-1PGDG.rhel8.x86_64.rpm
 ```
 
+# ディレクト構成
+
+```
+/postgre
+├── pgdata             # PGDATAディレクトリを'/var/lib/pgsql/11/data/'から切り替える
+│   ├── base
+│   ├── global
+│   ├── log
+│   ├── pg_commit_ts
+│   ├── pg_dynshmem
+│   ├── pg_logical
+│   ├── pg_multixact
+│   ├── pg_notify
+│   ├── pg_replslot
+│   ├── pg_serial
+│   ├── pg_snapshots
+│   ├── pg_stat
+│   ├── pg_stat_tmp
+│   ├── pg_subtrans
+│   ├── pg_tblspc
+│   ├── pg_twophase
+│   ├── pg_wal
+│   └── pg_xact
+├── pgdata.bak        # リストア作業時にPGDATAディレクトリの一時退避先
+│   ├── base
+│   ├── global
+│   ├── log
+│   ├── pg_commit_ts
+│   ├── pg_dynshmem
+│   ├── pg_logical
+│   ├── pg_multixact
+│   ├── pg_notify
+│   ├── pg_replslot
+│   ├── pg_serial
+│   ├── pg_snapshots
+│   ├── pg_stat
+│   ├── pg_stat_tmp
+│   ├── pg_subtrans
+│   ├── pg_tblspc
+│   ├── pg_twophase
+│   ├── pg_wal
+│   └── pg_xact
+├── basebackup       # フルバックアップのtarファイル格納先
+└── wal_archive      # WALログアーカイブ先
+```
 
 # change pgdata
+
+PGDATAディレクトリを`/var/lib/pgsql/11/data/`から`/postgre/pgdata`へ切り替える
 
 https://ex1.m-yabe.com/archives/4719
 
@@ -66,7 +113,9 @@ psql
 SHOW data_directory;
 ```
 
-# password_encryption
+# change password_encryption
+
+パスワードの暗号化方法を切り替える
 
 https://qiita.com/tom-sato/items/d5f722fd02ed76db5440
 
@@ -80,7 +129,6 @@ password_encryption = scram-sha-256		# md5 or scram-sha-256
 sudo systemctl restart postgresql-11
 ```
 
-# connect
 ```
 sudo su - postgres
 psql
@@ -88,7 +136,10 @@ psql
 show password_encryption;
 ```
 
-# change password
+# set postgres password
+
+postgresユーザへパスワードを設定する
+
 ```
 ALTER USER postgres with encrypted password 'postgres';
 quit
