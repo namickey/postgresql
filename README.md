@@ -175,8 +175,27 @@ psql -U user1 -d postgres
 
 # TLS
 
+図解 X.509 証明書  
+https://qiita.com/TakahikoKawasaki/items/4c35ac38c52978805c69  
+
 https://dk521123.hatenablog.com/entry/2020/05/05/221239
 
+パターン1
+```
+openssl genpkey -algorithm EC -pkeyopt ec_paramgen_curve:P-256 > private_key.pem
+openssl pkey -text -noout -in private_key.pem
+
+openssl req -x509 -days 3650 -key private_key.pem -subj /CN=example.com > certificate.pem
+openssl x509 -text -noout -in certificate.pem
+
+chmod 600 private_key.pem
+chmod 600 certificate.pem
+
+mv private_key.pem server.key
+mv certificate.pem server.crt
+```
+
+パターン2
 ```
 sudo su - postgres
 
