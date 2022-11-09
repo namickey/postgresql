@@ -113,8 +113,10 @@ sudo postgresql-11-setup initdb
 sudo systemctl restart postgresql-11
 sudo systemctl status postgresql-11
 
+sudo su - postgres
 psql
 SHOW data_directory;
+quit
 ```
 
 # change password_encryption
@@ -138,6 +140,7 @@ sudo su - postgres
 psql
 
 show password_encryption;
+quit
 ```
 
 # set postgres password
@@ -145,11 +148,11 @@ show password_encryption;
 postgresユーザへパスワードを設定する
 
 ```
+sudo su - postgres
+psql
+
 ALTER USER postgres with encrypted password 'postgres';
 quit
-```
-```
-exit
 ```
 
 # change auth
@@ -162,19 +165,23 @@ local   all             postgres                                scram-sha-256
 ```
 sudo systemctl restart postgresql-11
 ```
-
-# connect
 ```
+sudo su - postgres
 psql -U postgres
+quit
 ```
 
 # CREATE USER
 ```
+sudo su - postgres
+psql -U postgres
+
 -- ユーザー名「user1」をパスワード「pass」で作成する
 CREATE USER user1 WITH PASSWORD 'pass';
 quit
 
 psql -U user1 -d postgres
+quit
 ```
 
 # TLS
@@ -231,7 +238,9 @@ ssl=on
 listen_addresses = '*'
 ```
 ```
+sudo su - postgres
 psql -h 192.168.1.12 -U user1 -d postgres
+quit
 ```
 
 # firewalld
