@@ -32,6 +32,10 @@ postgresql11-11.17-1PGDG.rhel8.x86_64.rpm
 postgresql11-server-11.17-1PGDG.rhel8.x86_64.rpm
 ```
 
+# install postgresql for Amazon Linux 2
+
+https://qiita.com/libra_lt/items/f2d2d8ee389daf21d3fb
+
 # ディレクト構成
 
 ```
