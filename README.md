@@ -102,6 +102,17 @@ Environment=PGDATA=/var/lib/pgsql/11/data/
 Environment=PGDATA=/postgre/pgdata/
 ```
 
+# change postgres home directory
+
+https://www.softel.co.jp/blogs/tech/archives/5931
+
+```
+echo ~postgres
+sudo usermod -d /postgre/pgdata postgres
+echo ~postgres
+```
+
+# start service
 ```
 sudo systemctl daemon-reload
 sudo postgresql-11-setup initdb
