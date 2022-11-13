@@ -19,11 +19,6 @@ sudo dnf -qy module disable postgresql
 
 # Install PostgreSQL:
 sudo dnf install -y postgresql11-server
-
-# Optionally initialize the database and enable automatic start:
-sudo /usr/pgsql-11/bin/postgresql-11-setup initdb
-sudo systemctl enable postgresql-11
-sudo systemctl start postgresql-11
 ```
 ```
 インストールされたrpm
