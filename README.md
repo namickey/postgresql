@@ -89,6 +89,7 @@ create pgdata dir
 ```
 sudo mkdir -p /postgre/pgdata
 sudo chmod 700 /postgre/pgdata
+sudo chown postgres:postgres /postgre
 sudo chown postgres:postgres /postgre/pgdata
 ```
 ```
@@ -330,9 +331,9 @@ archive_command = 'test ! -f /postgre/wal_archive/%f && gzip < %p > /postgre/wal
 ```
 
 ```
-sudo mkdir /postgre/wal_archive
-sudo chmod 700 /postgre/wal_archive
-sudo chown postgres:postgres /postgre/wal_archive
+sudo su - postgres
+mkdir /postgre/wal_archive
+chmod 700 /postgre/wal_archive
 ```
 
 
@@ -350,9 +351,9 @@ https://www.lancard.com/blog/2018/03/22/pg_basebackup%E3%82%92%E8%A9%A6%E3%81%99
 
 初回バックアップ
 ```
-sudo mkdir /postgre/basebackup
-sudo chmod 700 /postgre/basebackup
-sudo chown postgres:postgres /postgre/basebackup
+sudo su - postgres
+mkdir /postgre/basebackup
+chmod 700 /postgre/basebackup
 
 pg_basebackup -D /postgre/basebackup/ -Ft -z -Xs -P -U postgres
 #pg_basebackup -D /postgre/basebackup/ -Fp -Xs -P -U postgres
