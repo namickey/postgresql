@@ -164,9 +164,9 @@ quit
 # change auth
 sudo vi /postgre/pgdata/pg_hba.conf
 ```
-local   all             all                                     peer
+local   all             all                                peer
  ↓
-local   all             postgres                                scram-sha-256
+local   all             all                                scram-sha-256
 ```
 ```
 sudo systemctl restart postgresql-11
@@ -230,6 +230,8 @@ sudo vi /postgre/pgdata/pg_hba.conf
 ```
 local   all             postgres                                scram-sha-256
  ↓
+hostssl   all           postgres           localhost            scram-sha-256
+ or
 hostssl   all           postgres           0.0.0.0/0            scram-sha-256
 ```
 
