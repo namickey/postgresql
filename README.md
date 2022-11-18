@@ -256,8 +256,10 @@ quit
 https://nwengblog.com/centos-firewalld/
 
 ```
+sudo firewall-cmd --list-all
 sudo firewall-cmd --zone=public --add-port=5432/tcp --permanent
 sudo firewall-cmd --reload
+sudo firewall-cmd --list-all
 ```
 
 # tcp dump
