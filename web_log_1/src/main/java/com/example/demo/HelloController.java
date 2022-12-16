@@ -14,7 +14,7 @@ public class HelloController {
 
     @GetMapping("/")
     public String hello(@RequestParam(value = "name", defaultValue = "World") String name) {
-        looger.info("HelloController called.");
+        looger.info("HelloController called. *****1");
         return String.format("Hello %s!", name);
     }
 
