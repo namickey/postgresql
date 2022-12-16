@@ -1,0 +1,62 @@
+<configuration>
+
+    <!-- 標準出力用設定 -->
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <charset>UTF-8</charset>
+            <pattern>%d{yyyy/MM/dd HH:mm:ss} %-5level [%thread] - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- ファイルA出力用設定 -->
+    <appender name="FILE_A" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!-- 出力先ファイルパス -->
+        <file>../alog.log</file>
+
+        <!-- ログのローテーション設定 -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+            <!-- 世代管理されるファイルの命名パターン -->
+            <fileNamePattern>alog.log.%i</fileNamePattern>    <!-- %iはインデックス。minIndexからMaxIndexまでの連番 -->
+            <minIndex>1</minIndex>
+            <maxIndex>7</maxIndex>      <!-- 最大7ファイルまで世代管理 -->
+        </rollingPolicy>
+
+        <!-- ローテーションのトリガ。10MBに達した時点でローテーション。 -->
+        <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+            <maxFileSize>10MB</maxFileSize>
+        </triggeringPolicy>
+
+        <encoder>
+            <charset>UTF-8</charset>
+            <pattern>%d{yyyy/MM/dd HH:mm:ss} %-5level [%thread] - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- ファイルB出力用設定 -->
+    <appender name="FILE_B" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>../blog.log</file>
+
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>blog.log.%d{yyyy-MM-dd}</fileNamePattern>
+            <!-- %d{yyyy-MM-dd}の設定によって、自動でローテーションがトリガされる。日まで指定すると、毎日ローテーション。 -->
+
+            <!-- 最大３０日間保存 -->
+            <maxHistory>30</maxHistory>
+
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{yyyy/MM/dd HH:mm:ss} %-5level [%thread] - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- rootロガーを継承したサブロガー。rootロガーの設定を引き継ぎつつ、追加でファイルBにもログを出す -->
+    <logger name="com.example" level="INFO">
+        <appender-ref ref="FILE_B" />
+    </logger>
+
+    <!-- rootロガー。ログは原則ファイルAと標準出力に出力する -->
+    <root level="INFO">
+        <appender-ref ref="STDOUT" />
+        <appender-ref ref="FILE_A" />
+    </root>
+</configuration>
