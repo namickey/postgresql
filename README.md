@@ -409,3 +409,17 @@ restore_command = 'gunzip < /postgre/wal_archive/%f > %p'
 ```
 sudo systemctl start postgresql-11
 ```
+
+# postgres権限ユーザ追加
+```
+psql -U postgres
+\du
+
+CREATE USER postgres_bk WITH PASSWORD 'postgres' SUPERUSER;
+\du
+
+\q
+
+psql -U postgres_bk
+```
+
