@@ -410,16 +410,38 @@ restore_command = 'gunzip < /postgre/wal_archive/%f > %p'
 sudo systemctl start postgresql-11
 ```
 
-# postgres権限ユーザ追加
+# スーパーユーザ権限のユーザを作成
+
+スーパーユーザ権限のユーザを作成する
 ```
-psql -U postgres
+psql-h localhost -U postgres
 \du
 
+#ユーザ作成。スーパーユーザロールを付与。
 CREATE USER postgres_bk WITH PASSWORD 'postgres' SUPERUSER;
 \du
 
 \q
+```
 
-psql -U postgres_bk
+作成したユーザでログインできることを確認する
+```
+psql -h localhost -U postgres_bk -d postgres
+\q
+```
+
+作成したユーザでpostgresユーザのパスワードを変更できることを確認する
+```
+#作成したスーパーユーザでログイン
+psql -h localhost -U postgres_bk -d postgres
+
+#postgresユーザのパスワード変更
+ALTER USER postgres WITH PASSWORD 'newpostgres';
+
+\q
+
+#postgresユーザでログイン
+psql -h localhost -U postgres
+\q
 ```
 
